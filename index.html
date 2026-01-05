@@ -292,26 +292,6 @@
       font-size: 13px;
     }
 
-    /* ✅ Inline write-up block (used inside the Poker project card) */
-    .writeup{
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.10);
-      background: rgba(255,255,255,0.03);
-    }
-    .writeup h4{
-      margin: 0 0 6px;
-      font-size: 13px;
-      color: var(--text);
-    }
-    .writeup p{
-      margin: 0;
-      font-size: 13px;
-      line-height: 1.5;
-      color: var(--muted);
-    }
-
     /* Footer */
     footer{padding: 22px 0 40px; color: var(--muted2)}
     .foot{
@@ -348,7 +328,7 @@
         <div class="hero-content">
           <div class="avatar">
             <img src="assets/me.jpeg" alt="Venkata Sreenivaas Lingam"
-              onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'avatar-placeholder\'><b>Image not found</b><br/>Check: assets/me.jpeg</div>';">
+              onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'avatar-placeholder\\'><b>Image not found</b><br/>Check: assets/me.jpeg</div>';">
           </div>
 
           <div class="about-content">
@@ -358,7 +338,7 @@
               focused on clean data, careful validation, and realistic backtests (costs, slippage, and regime behavior).
               <br/><br/>
               <b>Note:</b> I’m actively uploading more work—especially a <b>Currency Pairs Trading</b> research project and additional
-              systematic research pipelines. Links go live as each repo is published.
+              systematic research pipelines.
             </p>
 
             <div class="badges">
@@ -382,69 +362,6 @@
           </div>
         </div>
       </div>
-
-      <div class="grid">
-        <div class="card col-6">
-          <div class="mini">
-            <div class="spark"></div>
-            <div>
-              <h3>Currently building</h3>
-              <p>
-                A unified stat-arb research engine (including a currency pairs module): pair selection → cointegration tests →
-                purged walk-forward → costs & volatility targeting → artifact logging.
-                <br/><span class="note">Repositories are being cleaned and will be uploaded incrementally.</span>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="card col-6">
-          <div class="mini">
-            <div class="spark"></div>
-            <div>
-              <h3>What I care about</h3>
-              <p>
-                Clean experimentation, honest results, and turning ideas into shipping-quality code.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about" class="section">
-      <div class="grid">
-        <div class="card col-8">
-          <h2>About</h2>
-          <p class="muted">
-            Hi, I’m <b>Venkata Sreenivaas Lingam</b>. I’m an incoming <b>UC Berkeley Master of Financial Engineering</b> student (<b>Class of 2027</b>).
-            I completed my undergraduate degree in <b>Finance</b> with a <b>minor in Mathematics</b> at <b>Rutgers University</b>.
-            <br/><br/>
-            Since graduating, I’ve been working at a <b>technology-driven healthcare staffing marketplace</b>, where I’ve taken on responsibilities across revenue and credit analytics.
-            I like building <b>lean, low-cost systems</b> that move the needle—turning messy operational data into forecasts, risk monitors, and decision tools that teams actually use.
-            My default mode is pattern-hunting: understand the structure of the data, pressure-test assumptions, and convert insights into actionable outputs.
-            <br/><br/>
-            I’ve been drawn to financial markets since high school and spend my free time researching and testing systematic ideas—especially in <b>statistical arbitrage</b>, <b>volatility</b>, and <b>market microstructure</b>.
-            This site is where I share projects, write-ups, and notes: what worked, what didn’t, and what I learned along the way.
-            <br/><br/>
-            Outside markets, I enjoy <b>reading</b> (see my book list—recommendations welcome), <b>weightlifting</b>, <b>go-karting</b>, <b>poker</b>, and <b>horology</b>.
-            Feel free to connect via the links below.
-            <br/><br/>
-            I’m currently seeking <b>Quant Research</b> or <b>Quant Trader</b> internships for <b>Summer 2026</b>.
-          </p>
-        </div>
-
-        <div class="card col-4">
-          <h2>Quick facts</h2>
-          <ul class="list">
-            <li><b>Based in:</b> Newark, NJ → Berkeley, CA</li>
-            <li><b>Target roles:</b> Quant Research · Quant Trader · Quant Dev (Intern)</li>
-            <li><b>Stack:</b> Python, NumPy, pandas, statsmodels, scikit-learn, TensorFlow, PyTorch SQL, Git</li>
-            <li><b>Focus:</b> stat-arb research, volatility, validation & backtesting</li>
-          </ul>
-        </div>
-      </div>
     </section>
 
     <!-- PROJECTS -->
@@ -452,17 +369,6 @@
       <div class="card">
         <h2>Projects</h2>
         <p class="muted">Research pipelines, backtests, and systems. Each links to code + write-up when available.</p>
-
-        <div class="mini" style="margin:12px 0 16px;">
-          <div class="spark"></div>
-          <div>
-            <h3>Uploads in progress</h3>
-            <p>
-              The <b>Currency Pairs Trading Engine</b> and additional research projects are being finalized and uploaded soon.
-              Links will go live as each repo is published.
-            </p>
-          </div>
-        </div>
 
         <div class="tabs" role="tablist" aria-label="Project categories">
           <div class="tab active" data-filter="all">All</div>
@@ -473,125 +379,52 @@
         </div>
 
         <div class="projects" id="projectGrid">
+
           <article class="proj" data-cat="fx">
-            <h3>Currency Pairs Trading Engine <span class="tag">Coming soon</span></h3>
+            <h3>Currency Pairs Trading Engine <span class="tag">FX Stat-Arb</span></h3>
             <p>
-              Cointegration-based stat-arb with purged walk-forward validation, transaction costs,
-              and volatility-targeted sizing. Repo will be published soon.
+              A reproducible FX pairs-trading research pipeline: <b>data ingestion → systematic pair screening → diagnostics →
+              leak-safe backtests → cost & robustness sweeps</b>.
+              <br><br>
+              <b>Main focus:</b> <b>USDCNH–USDCNY</b> (onshore vs offshore RMB) — the strongest candidate in our universe by
+              cointegration + residual stationarity, with fast mean-reversion behavior (≈ 2-day half-life).
+              <br><br>
+              Includes a benchmark comparison on <b>AUDUSD–NZDUSD</b> and reports sensitivity across transaction-cost scenarios.
             </p>
             <div class="tags">
-              <span class="tag">Engle-Granger</span>
-              <span class="tag">Walk-forward</span>
-              <span class="tag">Costs</span>
-              <span class="tag">Artifacts</span>
+              <span class="tag">Engle–Granger</span>
+              <span class="tag">ADF residual</span>
+              <span class="tag">Half-life</span>
+              <span class="tag">Purged walk-forward</span>
+              <span class="tag">Transaction costs (bps)</span>
+              <span class="tag">Parameter sweeps</span>
             </div>
             <div class="row">
-              <span class="note">Repo: uploading soon</span>
-              <a class="link" href="#" aria-disabled="true" onclick="return false;">Write-up (soon)</a>
+              <a class="link" href="https://github.com/lvsreenivaas/FX_Trading_Engine" target="_blank" rel="noreferrer">Repo</a>
+              <a class="link" href="https://github.com/lvsreenivaas/FX_Trading_Engine/blob/main/README.md" target="_blank" rel="noreferrer">Write-up</a>
+              <span class="note">Notebook + plots inside repo</span>
             </div>
           </article>
 
-          <!-- ✅ Poker card with inline write-up under the project -->
+          <!-- Other project placeholders (edit as you like) -->
           <article class="proj" data-cat="systems">
             <h3>Poker Equity Calculator</h3>
             <p>
               Streamlit-based Texas Hold’em equity calculator using Monte Carlo simulation (via <code>treys</code>).
               v1 models opponents as random hands and returns equity + a basic pot-odds/EV call/fold recommendation.
             </p>
-
-
-            <div class="tags" style="margin-top:10px;">
+            <div class="tags">
               <span class="tag">Monte Carlo</span>
               <span class="tag">Equity</span>
               <span class="tag">Pot Odds / EV</span>
               <span class="tag">Streamlit</span>
               <span class="tag">treys</span>
             </div>
-
             <div class="row">
               <a class="link" href="https://github.com/lvsreenivaas/Poker-Equity-Calculator" target="_blank" rel="noreferrer">Repo</a>
             </div>
           </article>
 
-          <article class="proj" data-cat="commodities">
-            <h3>Commodities Spread Research</h3>
-            <p>Gold-Silver / Brent-WTI experiments: mean reversion, half-life, regime stability.</p>
-            <div class="tags">
-              <span class="tag">Spreads</span>
-              <span class="tag">Stationarity</span>
-              <span class="tag">Diagnostics</span>
-            </div>
-            <div class="row">
-              <a class="link" href="#" onclick="return false;">Repo (soon)</a>
-              <a class="link" href="#" onclick="return false;">Write-up (soon)</a>
-            </div>
-          </article>
-
-          <article class="proj" data-cat="systems">
-            <h3>Backtesting Harness</h3>
-            <p>A lightweight research framework with configs, saved metrics, plots, and reproducible runs.</p>
-            <div class="tags">
-              <span class="tag">CLI</span>
-              <span class="tag">Configs</span>
-              <span class="tag">Repro</span>
-            </div>
-            <div class="row">
-              <a class="link" href="#" onclick="return false;">Repo (soon)</a>
-            </div>
-          </article>
-
-          <article class="proj" data-cat="notes">
-            <h3>Research Notes</h3>
-            <p>Short write-ups: cointegration, half-life, purging leakage, cost sensitivity.</p>
-            <div class="tags">
-              <span class="tag">Explainers</span>
-              <span class="tag">Math</span>
-              <span class="tag">Code</span>
-            </div>
-            <div class="row">
-              <a class="link" href="#" onclick="return false;">Notes index (soon)</a>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- BOOK LIST -->
-    <section id="books" class="section">
-      <div class="grid">
-        <div class="card col-6">
-          <h2>Book list</h2>
-          <p class="muted">Previous Reads</p>
-          <ul class="list">
-            <li><i>The Misbehavior of Markets</i> — Benoit B. Mandelbrot (with Richard L. Hudson)</li>
-            <li><i>Deep Work</i> — Cal Newport</li>
-            <li><i>Surely You’re Joking, Mr. Feynman!</i> — Richard P. Feynman</li>
-            <li><i>Options, Futures, and Other Derivatives</i> — John C Hull</li>
-            <li><i>Principles: Life and Work</i> — Ray Dalio</li>
-            <li><i>The Man Who Solved the Market</i> — Gregory Zuckerman</li>
-            <li><i>The Man Who Only Loved Numbers</i> — Paul Hoffman (about Paul Erdős)</li>
-            <li><i>Scale</i> — Geoffrey West</li>
-            <li><i>Nudge: Improving Decisions About Health, Wealth, and Happiness</i> — Richard H. Thaler &amp; Cass R. Sunstein</li>
-            <li><i>Steve Jobs</i> — Walter Isaacson</li>
-            <li><i>Elon Musk</i> — Walter Isaacson</li>
-            <li><i>More Money Than God</i> — Sebastian Mallaby</li>
-            <li><i>The Quants</i> — Scott Patterson</li>
-            <li><i>Business Cycles and Equilibrium</i> — Fischer Black</li>
-          </ul>
-        </div>
-
-        <div class="card col-6">
-          <h2>Currently reading</h2>
-          <ul class="list">
-            <li><i>Applied Econometric Time Series</i> — Walter Enders</li>
-            <li><i>Algorithmic Trading</i> — Ernest P. Chan</li>
-            <li><i>The Coddling of the American Mind</i> - Greg Lukianoff, Jonathan Haidt</li>
-          </ul>
-
-          <h2 style="margin-top:18px;">Suggest a book</h2>
-          <p class="muted">
-            If you think I’d like something in markets, probability, macro, or decision-making under uncertainty—send it my way.
-          </p>
         </div>
       </div>
     </section>

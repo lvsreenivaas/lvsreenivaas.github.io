@@ -380,8 +380,7 @@
             <div>
               <h3>Currently building</h3>
               <p>
-                Crude oil geopolitical risk analysis (Venezuela - USA impact).
-                <br/><span class="note">.</span>
+                NIFTY Smallcap 100 pairs trading — testing faster mean reversion on Indian small-cap equities, extending the NIFTY 50 research pipeline.
               </p>
             </div>
           </div>
@@ -440,13 +439,14 @@
           <div>
             <h3>Uploads in progress</h3>
             <p>
-              Additional research projects (crude oil geopolitics, commodities spreads) are being finalized. Links will go live as each repo is published.
+              Additional research projects (commodities spreads, NIFTY Smallcap 100) are being finalized. Links go live as each repo is published.
             </p>
           </div>
         </div>
 
         <div class="tabs" role="tablist" aria-label="Project categories">
           <div class="tab active" data-filter="all">All</div>
+          <div class="tab" data-filter="equities">Equities</div>
           <div class="tab" data-filter="fx">FX</div>
           <div class="tab" data-filter="commodities">Commodities</div>
           <div class="tab" data-filter="systems">Systems</div>
@@ -454,6 +454,29 @@
         </div>
 
         <div class="projects" id="projectGrid">
+
+          <!-- NSE NIFTY 50 Pairs Trading (PUBLISHED) -->
+          <article class="proj" data-cat="equities">
+            <h3>NSE NIFTY 50 Pairs Trading <span class="tag highlight">Live</span></h3>
+            <p>
+              A systematic cointegration-based pairs trading pipeline on the <b>NIFTY 50 universe</b> (46 stocks, 1,035 pairs scanned).
+              Uses <b>rolling OLS hedge ratio</b>, z-score entry/exit signals, and beta stability filters.
+              <br><br>
+              Best pair: <b>EICHERMOT / SHRIRAMFIN</b> — Sharpe 0.40 · Sortino 0.92 · CAGR 14% · Total Return 2.95× (net of 10bps/leg costs, 2018–2026).
+            </p>
+            <div class="tags">
+              <span class="tag">Engle–Granger</span>
+              <span class="tag">Rolling OLS</span>
+              <span class="tag">Z-score signals</span>
+              <span class="tag">Half-life</span>
+              <span class="tag">Beta stability</span>
+              <span class="tag">Transaction costs</span>
+            </div>
+            <div class="row">
+              <a class="link" href="https://github.com/lvsreenivaas/pairs-trading-nse-nifty50" target="_blank" rel="noreferrer">Repo</a>
+              <a class="link" href="https://github.com/lvsreenivaas/pairs-trading-nse-nifty50/blob/main/README.md" target="_blank" rel="noreferrer">Write-up</a>
+            </div>
+          </article>
 
           <!-- FX Trading Engine (PUBLISHED) -->
           <article class="proj" data-cat="fx">
@@ -477,27 +500,6 @@
             <div class="row">
               <a class="link" href="https://github.com/lvsreenivaas/FX_Trading_Engine" target="_blank" rel="noreferrer">Repo</a>
               <a class="link" href="https://github.com/lvsreenivaas/FX_Trading_Engine/blob/main/README.md" target="_blank" rel="noreferrer">Write-up</a>
-            </div>
-          </article>
-
-          <!-- Crude Oil Geopolitics (WIP) -->
-          <article class="proj" data-cat="commodities">
-            <h3>Crude Oil Geopolitics: Venezuela Sanctions Impact <span class="tag wip">In Progress</span></h3>
-            <p>
-              Analyzing how evolving Venezuela sanctions affect global crude prices—modeling supply disruptions, regime shifts, and correlation structure across WTI, Brent, and Venezuelan heavy crude benchmarks.
-              <br><br>
-              Focus on quantifying sanctions elasticity, storage dynamics, and second-order effects on refinery margins and regional price differentials.
-            </p>
-            <div class="tags">
-              <span class="tag">Geopolitics</span>
-              <span class="tag">Supply shocks</span>
-              <span class="tag">Sanctions</span>
-              <span class="tag">Regime analysis</span>
-              <span class="tag">Price correlation</span>
-            </div>
-            <div class="row">
-              <a class="link disabled" href="#" onclick="return false;">Repo (coming soon)</a>
-              <a class="link disabled" href="#" onclick="return false;">Write-up (coming soon)</a>
             </div>
           </article>
 

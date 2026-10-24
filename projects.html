@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- 4. unique title · 5. meta description -->
+  <title>Projects — Regime Inference, Graph Learning &amp; Private-Markets Data | Venkata Sreenivaas Lingam</title>
+  <meta name="description" content="In-depth write-ups of six quantitative research projects: BTP-Bund regime-aware hedging at Citi, graph neural networks on 150k firm-months, a private-markets PDF-to-Postgres pipeline, and a permutation-test post-mortem on software-cycle regimes and PE returns." />
+  <meta name="author" content="Venkata Sreenivaas Lingam" />
+
+  <!-- 7. canonical -->
+  <link rel="canonical" href="https://lvsreenivaas.github.io/projects.html" />
+
+  <!-- 8. Open Graph / Twitter card -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Venkata Sreenivaas Lingam" />
+  <meta property="og:title" content="Projects — Regime Inference, Graph Learning &amp; Private-Markets Data | Venkata Sreenivaas Lingam" />
+  <meta property="og:description" content="In-depth write-ups of six quantitative research projects: BTP-Bund regime-aware hedging at Citi, graph neural networks on 150k firm-months, a private-markets PDF-to-Postgres pipeline, and a permutation-test post-mortem on software-cycle regimes and PE returns." />
+  <meta property="og:url" content="https://lvsreenivaas.github.io/projects.html" />
+  <meta property="og:image" content="https://lvsreenivaas.github.io/assets/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Venkata Sreenivaas Lingam — quantitative research and trading, UC Berkeley MFE" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Projects — Regime Inference, Graph Learning &amp; Private-Markets Data | Venkata Sreenivaas Lingam" />
+  <meta name="twitter:description" content="In-depth write-ups of six quantitative research projects: BTP-Bund regime-aware hedging at Citi, graph neural networks on 150k firm-months, a private-markets PDF-to-Postgres pipeline, and a permutation-test post-mortem on software-cycle regimes and PE returns." />
+  <meta name="twitter:image" content="https://lvsreenivaas.github.io/assets/og-image.png" />
+
+  <!-- 18. Search Console: replace the token, then hit Verify -->
+  <meta name="google-site-verification" content="PASTE_SEARCH_CONSOLE_TOKEN" />
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preload" as="image" href="assets/me.webp" fetchpriority="high" />
+  <link rel="stylesheet" href="assets/style.css" />
+
+  <!-- 14. structured data · 15. breadcrumb schema -->
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://lvsreenivaas.github.io/"},{"@type":"ListItem","position":2,"name":"Projects","item":"https://lvsreenivaas.github.io/projects.html"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Projects","url":"https://lvsreenivaas.github.io/projects.html","author":{"@id":"https://lvsreenivaas.github.io/#person"},"isPartOf":{"@id":"https://lvsreenivaas.github.io/#website"}}</script>
+
+  <!-- 17. Analytics: replace G-XXXXXXXXXX with your GA4 measurement ID.
+       Until then this loads nothing and tracks nothing. -->
+  <script>
+    window.GA_ID = "G-XXXXXXXXXX";
+    if (window.GA_ID.indexOf("X") === -1) {
+      var s = document.createElement("script"); s.async = true;
+      s.src = "https://www.googletagmanager.com/gtag/js?id=" + window.GA_ID;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag; gtag("js", new Date());
+      gtag("config", window.GA_ID, { anonymize_ip: true });
+    }
+  </script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav class="nav" aria-label="Primary">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="dot" aria-hidden="true"></span>
+      <strong>Venkata Sreenivaas Lingam</strong></a>
+    <div class="nav-links"><a href="index.html">Home</a><a href="projects.html" aria-current="page">Projects</a><a href="research.html">Research</a><a href="reading.html">Reading</a><a href="contact.html">Contact</a>
+      <a class="btn primary sm" href="assets/RESUME_VENKATA_SREE_LINGAM.pdf" target="_blank" rel="noopener">Résumé (PDF)</a>
+    </div>
+  </div>
+</nav>
+<main id="main" class="wrap"><nav class="crumbs" aria-label="Breadcrumb"><a href="index.html">Home</a><span class="sep" aria-hidden="true">/</span><span aria-current="page">Projects</span></nav>
+<section class="section">
+  <h1>Projects</h1>
+  <p class="lead">Six projects in depth — the question, the method, the number, and the part
+  that didn't work. Several of these ended in negative results; those write-ups are the longest,
+  because the interesting content is <i>why</i> the first answer was wrong.</p>
+  <div class="tabs" role="tablist" aria-label="Filter projects by area">
+    <button class="tab active" data-filter="all" role="tab" aria-selected="true">All</button>
+    <button class="tab" data-filter="equities" role="tab" aria-selected="false">Equities</button>
+    <button class="tab" data-filter="rates" role="tab" aria-selected="false">Rates</button>
+    <button class="tab" data-filter="privatemkts" role="tab" aria-selected="false">Private markets</button>
+    <button class="tab" data-filter="systems" role="tab" aria-selected="false">Systems</button>
+  </div>
+</section>
+
+<!-- ============ CITI ============ -->
+<article class="card proj" id="citi" data-cat="rates" style="margin-top:4px">
+  <div class="proj-head">
+    <div>
+      <p class="eyebrow">Citi · UC Berkeley industry project · Supervisor: Peter Decrem</p>
+      <h2 style="margin-bottom:4px">Hedging Italian sovereign risk with Bund futures,
+        across regimes</h2>
+    </div>
+    <span class="proj-when">Oct – Dec 2026</span>
+  </div>
+  <p class="muted"><b>The question.</b> Italian government bonds (BTPs) are routinely hedged with
+  German Bund futures on a covariance ratio estimated over a long window. That ratio is a
+  minimum-variance solution to a problem that assumes the Italy–Germany relationship is stable.
+  It is not. The whole value of the hedge is concentrated in the days when the spread jumps —
+  and those are precisely the days the static estimate is wrong about.</p>
+
+  <p class="muted"><b>What I did.</b> I formulated the hedge as a minimum-variance problem and
+  proved its optimality conditions, then derived the jump-adjusted no-arbitrage drift for a
+  regime-switching spread process. I modelled regime-specific volatility, correlation, expected
+  holding time and transition jump sizes, and let the hedge ratio update on the inferred regime
+  rather than on a single unconditional covariance.</p>
+
+  <figure class="chart"><p class="ct">A static hedge ratio fails exactly when it is needed</p><p class="cs">Variance reduction on the largest 5% of Italy–Germany spread-move days, out-of-sample.</p><svg viewBox="0 0 640 110" role="img" aria-label="Bar chart: Static covariance-ratio hedge 7%, Regime-aware hedge ratio 9%"><line class="grid" x1="215.0" y1="6" x2="215.0" y2="82"/><text class="lbl" x="215.0" y="98" text-anchor="middle">0%</text><line class="grid" x1="318.8" y1="6" x2="318.8" y2="82"/><text class="lbl" x="318.8" y="98" text-anchor="middle">4%</text><line class="grid" x1="422.5" y1="6" x2="422.5" y2="82"/><text class="lbl" x="422.5" y="98" text-anchor="middle">7%</text><line class="grid" x1="526.2" y1="6" x2="526.2" y2="82"/><text class="lbl" x="526.2" y="98" text-anchor="middle">10%</text><line class="grid" x1="630.0" y1="6" x2="630.0" y2="82"/><text class="lbl" x="630.0" y="98" text-anchor="middle">14%</text><g class="mark" tabindex="0" role="listitem" aria-label="Static covariance-ratio hedge: 7%"><rect class="hit" x="0" y="6" width="640" height="38"/><text class="lbl" x="203" y="29" text-anchor="end">Static covariance-ratio hedge</text><rect class="bar" x="215" y="12" width="207.5" height="20" fill="#3987e5"/><text class="val" x="431.5" y="29">7%</text><g class="tip"><rect x="107" y="-40" width="423" height="43"/><text x="117" y="-21">Static covariance-ratio hedge: 7%</text><text x="117" y="-6">The textbook minimum-variance ratio, estimated unconditionally.</text></g></g><g class="mark" tabindex="0" role="listitem" aria-label="Regime-aware hedge ratio: 9%"><rect class="hit" x="0" y="44" width="640" height="38"/><text class="lbl" x="203" y="67" text-anchor="end">Regime-aware hedge ratio</text><rect class="bar" x="215" y="50" width="266.8" height="20" fill="#3987e5"/><text class="val" x="490.8" y="67">9%</text><g class="tip"><rect x="82" y="-2" width="532" height="43"/><text x="92" y="17">Regime-aware hedge ratio: 9%</text><text x="92" y="32">Updated for regime-specific vol, correlation, holding time and transition jumps.</text></g></g><line class="axis" x1="215" y1="6" x2="215" y2="82"/></svg><figcaption>Both numbers are small, and that is the result. Adding three Bund options to hedge the nonlinear exposure cut residual jump variance a further 13.6% across the 2018, 2020 and 2022 crises — but 19% of initial risk stayed stubbornly BTP-specific. A spanning argument explains why: seven futures cannot cover the 20 transition shocks in a five-regime model, which needs at least 19 instruments for arbitrary jumps.</figcaption><details class="tableview"><summary>View as table</summary><div class="scroll-x"><table class="tbl"><caption class="note" style="text-align:left;padding:6px 0">Out-of-sample, team tests. The third row is a different estimand (residual jump variance) and is not directly comparable to the first two.</caption><thead><tr><th>Hedge</th><th>Variance reduction</th></tr></thead><tbody><tr><td>Static covariance ratio</td><td class="num">7%</td></tr><tr><td>Regime-aware ratio</td><td class="num">9%</td></tr><tr><td>+ three Bund options (residual jump variance)</td><td class="num">13.6%</td></tr><tr><td>Irreducible BTP-specific residual</td><td class="num">19% of initial risk</td></tr></tbody></table></div></details></figure>
+
+  <div class="callout warn">
+    <h4>The result that mattered was a spanning argument</h4>
+    <p>In a five-regime model there are 20 possible transition shocks. A hedger holding seven
+    futures contracts has seven instruments. A spanning argument shows those seven cannot cover
+    all 20 — hedging arbitrary jumps requires at least 19 instruments. This isn't a calibration
+    problem that more data fixes; it's a rank problem. It explains the 19% of initial risk that
+    stayed BTP-specific no matter what we did with futures.</p>
+  </div>
+
+  <p class="muted"><b>So we went nonlinear.</b> If the futures can't span the jump space, the
+  remaining lever is convexity. I optimised a three-option Bund structure against the nonlinear
+  jump exposure, which cut residual jump variance by a further 13.6% across the 2018, 2020 and
+  2022 crisis episodes.</p>
+
+  <p class="muted"><b>What I'd flag.</b> Going from 7% to 9% variance reduction is not a
+  headline, and I'd rather present it as one honest number than dress it up. The genuinely
+  transferable output is the spanning result: it tells a desk how many instruments a
+  regime-aware hedge <i>needs</i> before anyone spends time estimating ratios.</p>
+
+  <div class="tags">
+    <span class="tag on">Minimum-variance hedging</span><span class="tag on">Regime switching</span>
+    <span class="tag">Jump-adjusted no-arbitrage drift</span><span class="tag">Spanning arguments</span>
+    <span class="tag">Option overlay</span><span class="tag">BTP–Bund</span>
+  </div>
+</article>
+
+<!-- ============ GNN ============ -->
+<article class="card proj" id="gnn" data-cat="equities">
+  <div class="proj-head">
+    <div>
+      <p class="eyebrow">UC Berkeley MFE · with Aaryen Mehta and Tejas Girhe</p>
+      <h2 style="margin-bottom:4px">Firms that look alike: graph neural networks and the
+        cross-section of returns</h2>
+    </div>
+    <span class="proj-when">Aug – Oct 2026</span>
+  </div>
+  <p class="muted"><b>The question.</b> There's a well-established literature showing return
+  predictability flows along economic links — customers and suppliers, shared analysts,
+  technological relatedness. Graph neural networks are the natural way to exploit that. But
+  observed links aren't available for every firm in every period. So: can you build the graph
+  out of <i>firm characteristics</i> instead, and does that graph add anything over a plain
+  neural network that already sees the same characteristics?</p>
+
+  <p class="muted"><b>Setup.</b> U.S. stocks, 2010–2024, roughly 150,000 out-of-sample
+  firm-months. 64 firm characteristics. TransformerConv models trained across six
+  message-passing depths, against a characteristics-only neural network baseline. We tested both
+  a simple nearest-neighbour graph and a learned graph.</p>
+
+  <figure class="chart"><p class="ct">The graph's value was a reference group, not extra information</p><p class="cs">Gross Sharpe ratio of monthly long–short decile portfolios, U.S. stocks 2010–2024.</p><svg viewBox="0 0 640 148" role="img" aria-label="Bar chart: Plain neural network 0.69, Ranked within 20 characteristic clusters 1.03, Peer-relative reversal signal 1.38"><line class="grid" x1="258.0" y1="6" x2="258.0" y2="120"/><text class="lbl" x="258.0" y="136" text-anchor="middle">0.00</text><line class="grid" x1="351.0" y1="6" x2="351.0" y2="120"/><text class="lbl" x="351.0" y="136" text-anchor="middle">0.42</text><line class="grid" x1="444.0" y1="6" x2="444.0" y2="120"/><text class="lbl" x="444.0" y="136" text-anchor="middle">0.85</text><line class="grid" x1="537.0" y1="6" x2="537.0" y2="120"/><text class="lbl" x="537.0" y="136" text-anchor="middle">1.27</text><line class="grid" x1="630.0" y1="6" x2="630.0" y2="120"/><text class="lbl" x="630.0" y="136" text-anchor="middle">1.70</text><g class="mark" tabindex="0" role="listitem" aria-label="Plain neural network: 0.69"><rect class="hit" x="0" y="6" width="640" height="38"/><text class="lbl" x="246" y="29" text-anchor="end">Plain neural network</text><rect class="bar" x="258" y="12" width="151.0" height="20" fill="#3987e5"/><text class="val" x="418.0" y="29">0.69</text><g class="tip"><rect x="240" y="-40" width="186" height="43"/><text x="250" y="-21">Plain neural network: 0.69</text><text x="250" y="-6">Annualised volatility 23%.</text></g></g><g class="mark" tabindex="0" role="listitem" aria-label="Ranked within 20 characteristic clusters: 1.03"><rect class="hit" x="0" y="44" width="640" height="38"/><text class="lbl" x="246" y="67" text-anchor="end">Ranked within 20 characteristic clusters</text><rect class="bar" x="258" y="50" width="225.4" height="20" fill="#3987e5"/><text class="val" x="492.4" y="67">1.03</text><g class="tip"><rect x="165" y="-2" width="410" height="43"/><text x="175" y="17">Ranked within 20 characteristic clusters: 1.03</text><text x="175" y="32">Same forecasts, ranked peer-relative. Volatility falls to 9%.</text></g></g><g class="mark" tabindex="0" role="listitem" aria-label="Peer-relative reversal signal: 1.38"><rect class="hit" x="0" y="82" width="640" height="38"/><text class="lbl" x="246" y="105" text-anchor="end">Peer-relative reversal signal</text><rect class="bar" x="258" y="88" width="302.0" height="20" fill="#199e70"/><text class="val" x="569.0" y="105">1.38</text><g class="tip"><rect x="175" y="36" width="468" height="43"/><text x="185" y="55">Peer-relative reversal signal: 1.38</text><text x="185" y="70">Prior-month return vs the firm&#x27;s 20 nearest characteristic neighbours.</text></g></g><line class="axis" x1="258" y1="6" x2="258" y2="120"/></svg><div class="legend"><span><i class="s1"></i>Forecast model</span><span><i class="s3"></i>Standalone signal</span></div><figcaption>Message passing between characteristic-similar firms did not beat a plain network that saw the same 64 characteristics. What did help was using those neighbours as a normalisation device: ranking the identical forecasts inside peer clusters cut volatility from 23% to 9% and lifted Sharpe from 0.69 to 1.03. The honest reading is that the characteristics already carry most of what the links would have transmitted.</figcaption><details class="tableview"><summary>View as table</summary><div class="scroll-x"><table class="tbl"><caption class="note" style="text-align:left;padding:6px 0">Gross of costs. The deployed GNN configuration earned 1.03 / 1.11 at message-passing depths 1–2, net of 5–7 bps per trade.</caption><thead><tr><th>Specification</th><th>Sharpe</th><th>Annualised vol</th></tr></thead><tbody><tr><td>Plain neural network</td><td class="num">0.69</td><td class="num">23%</td></tr><tr><td>Ranked within 20 clusters</td><td class="num">1.03</td><td class="num">9%</td></tr><tr><td>Peer-relative reversal</td><td class="num">1.38</td><td class="num">—</td></tr></tbody></table></div></details></figure>
+
+  <div class="callout find">
+    <h4>The answer is a reframe, not a yes or a no</h4>
+    <p>Message passing between characteristic-similar firms was <b>not consistently superior</b>
+    to the plain network. The learned graph helped in one specification and not across others.
+    The reason shows up in the raw data: the comovement between characteristic neighbours is
+    largely <i>accounted for by the characteristics that defined them</i>, so there is little
+    residual information left for the graph to transmit. Characteristic neighbours work better
+    as a <b>reference group</b> than as a channel.</p>
+    <p style="margin-top:8px">Ranking the same forecasts within 20 characteristic clusters took
+    annualised volatility from 23% to 9% and the Sharpe ratio from 0.69 to 1.03 — no new
+    information, just a better denominator. And a standalone peer-relative reversal signal (a
+    firm's prior-month return against its 20 nearest neighbours) ran a gross Sharpe of 1.38,
+    concentrated in the short leg and in small firms.</p>
+  </div>
+
+  <figure class="chart"><p class="ct">Deeper message passing failed by oversmoothing, not by overfitting</p><p class="cs">Cross-sectional dispersion of model predictions, by message-passing depth.</p><svg viewBox="0 0 640 110" role="img" aria-label="Bar chart: Depth 1 0.0350, Depth 10 0.0017"><line class="grid" x1="90.0" y1="6" x2="90.0" y2="82"/><text class="lbl" x="90.0" y="98" text-anchor="middle">0.0000</text><line class="grid" x1="225.0" y1="6" x2="225.0" y2="82"/><text class="lbl" x="225.0" y="98" text-anchor="middle">0.0115</text><line class="grid" x1="360.0" y1="6" x2="360.0" y2="82"/><text class="lbl" x="360.0" y="98" text-anchor="middle">0.0230</text><line class="grid" x1="495.0" y1="6" x2="495.0" y2="82"/><text class="lbl" x="495.0" y="98" text-anchor="middle">0.0345</text><line class="grid" x1="630.0" y1="6" x2="630.0" y2="82"/><text class="lbl" x="630.0" y="98" text-anchor="middle">0.0460</text><g class="mark" tabindex="0" role="listitem" aria-label="Depth 1: 0.0350"><rect class="hit" x="0" y="6" width="640" height="38"/><text class="lbl" x="78" y="29" text-anchor="end">Depth 1</text><rect class="bar" x="90" y="12" width="410.9" height="20" fill="#3987e5"/><text class="val" x="509.9" y="29">0.0350</text><g class="tip"><rect x="141" y="-40" width="308" height="43"/><text x="151" y="-21">Depth 1: 0.0350</text><text x="151" y="-6">Train and test return correlation both 0.081.</text></g></g><g class="mark" tabindex="0" role="listitem" aria-label="Depth 10: 0.0017"><rect class="hit" x="0" y="44" width="640" height="38"/><text class="lbl" x="78" y="67" text-anchor="end">Depth 10</text><rect class="bar" x="90" y="50" width="20.0" height="20" fill="#d95926"/><text class="val" x="119.0" y="67">0.0017</text><g class="tip"><rect x="-73" y="-2" width="346" height="43"/><text x="-63" y="17">Depth 10: 0.0017</text><text x="-63" y="32">Train and test return correlation still both 0.081.</text></g></g><line class="axis" x1="90" y1="6" x2="90" y2="82"/></svg><div class="legend"><span><i class="s1"></i>Depth 1</span><span><i class="s2"></i>Depth 10</span></div><figcaption>A 20× collapse in prediction dispersion while train and test correlations stayed equal at 0.081. If the deep model were overfitting, training correlation would have pulled away from test. It did not — the model simply averaged every firm towards the same number as information propagated across more hops.</figcaption></figure>
+
+  <p class="muted"><b>My contributions specifically.</b> I fixed excess-return targeting and
+  look-ahead bias in the Ridge/LASSO baselines; expanded the point-in-time graph from 940 to
+  3,138 counterparties and built an SEC filings pipeline that added 14,339 edge rows; ran the
+  six-benchmark spanning tests (incremental signal at four of six depths); and diagnosed the
+  deeper-model failure as oversmoothing rather than overfitting.</p>
+
+  <div class="callout">
+    <h4>A reproduction note worth more than the result</h4>
+    <p>The lead–lag computation is a float32 mean, and exact ties at the decile cut made results
+    platform-dependent — the same code gave different deciles on different machines. Sorting
+    each firm's neighbours by similarity before averaging reproduces the published series
+    bit-exactly. Separately, 10 of the 64 characteristics turned out to be constant within every
+    month, so only 54 actually vary cross-sectionally. Neither fact changes the headline;
+    both change how much you should trust a single run.</p>
+  </div>
+
+  <div class="row">
+    <a class="btn primary sm" href="research.html#firms-that-look-alike">Paper &amp; abstract</a>
+    <a class="btn sm" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7661378" target="_blank" rel="noopener">View on SSRN</a>
+    <a class="btn sm" href="assets/firms-that-look-alike-ssrn-7661378.pdf"
+       target="_blank" rel="noopener">Download PDF</a>
+  </div>
+  <div class="tags">
+    <span class="tag on">Graph neural networks</span><span class="tag on">TransformerConv</span>
+    <span class="tag">PyTorch</span><span class="tag">Cross-sectional returns</span>
+    <span class="tag">Oversmoothing</span><span class="tag">Look-ahead bias</span>
+    <span class="tag">CRSP / WRDS</span>
+  </div>
+</article>
+
+<!-- ============ PRISMA ============ -->
+<article class="card proj" id="prisma" data-cat="privatemkts">
+  <div class="proj-head">
+    <div>
+      <p class="eyebrow">Prisma AI × UC Berkeley Haas MFE</p>
+      <h2 style="margin-bottom:4px">The private-markets dataset that was public the whole time</h2>
+    </div>
+    <span class="proj-when">2026</span>
+  </div>
+  <p class="muted"><b>The observation.</b> Every U.S. public pension fund posts its complete
+  private-equity book every quarter. Fund name, vintage, commitment, paid-in, distributions,
+  NAV, DPI, TVPI, net IRR — all of it, in board meeting materials, free to anyone. Across 28+
+  funds that's a $4T+ addressable universe of LP-reported performance. PitchBook and Preqin
+  charge $20K–$250K a year for a <i>worse</i> version of the same information.</p>
+
+  <div class="callout">
+    <h4>Why nobody had built it</h4>
+    <p>Three barriers, none of them technical. The data is fragmented across 90+ sites, each
+    with its own format and schedule — no API, no bulk export, no single source. It's
+    PDF-native rather than data-native, living inside board packets as tables. And the toolset
+    to extract it (Python, pdfplumber, regex, Tesseract) has been free for a decade. The scarce
+    resource was never the engineering. It was recognising that LP-reported net IRR is
+    categorically more accurate than anything a vendor aggregates from GP self-reports.</p>
+  </div>
+
+  <h3 style="margin-top:20px">What unsupervised LLMs got wrong</h3>
+  <p class="muted">We started where everyone starts: paste the PDF, ask the model, get the IRR.
+  It does not work, and no amount of prompt engineering fixed it. Three distinct failure modes:</p>
+  <ul class="list">
+    <li><b>Tables are not text.</b> pdfplumber reads left-to-right across the page, so a
+      four-column PE schedule arrives as garbled interleaved rows. A language model cannot
+      reconstruct the original grid from a character stream.</li>
+    <li><b>Format heterogeneity.</b> Verus reports differ fundamentally from Callan, NEPC,
+      Aksia and StepStone — different column order, header names and footnote placement.</li>
+    <li><b>Hallucination at scale.</b> On long board packets the models invented IRR values,
+      swapped DPI and TVPI, and pinned performance to the wrong vintage year. No warning, no
+      error flag. Just wrong numbers that look right — the worst possible failure mode for a
+      dataset you intend to run regressions on.</li>
+  </ul>
+
+  <p class="muted"><b>The fix: deterministic code where it matters, intelligence where it
+  scales.</b> Seven consultant-specific parsers (Verus, Callan, NEPC, Aksia, Meketa, StepStone,
+  AON), bounding-box extraction rather than linear text, and a regex normalisation layer mapping
+  raw text into a nine-field schema per fund record. Scanned packets with no text layer get
+  rasterised and run through Tesseract OCR, then re-enter the same pipeline. Footnotes bleeding
+  into the last fund row — corrupting NAV and DPI with disclaimer text — were killed by a
+  two-pass scan that detects the footnote boundary via font-size drop and clips above it. And
+  number chaos got its own layer: <code>(14.2)</code> became <code>-14.2</code>, currency and
+  percent symbols stripped, and <code>N/A</code>, an em dash, an empty string and a null
+  collapsed into one NULL. Whatever survived that and still broke got a hardcoded rule.</p>
+
+  <p class="muted">The output lands in Postgres behind a FastAPI backend, with a Retool UI as
+  the human QA and validation layer. The schema is modelled on PCRI — the Private Capital
+  Research Institute dataset that Harvard, Stanford and Yale researchers use as the academic
+  gold standard — which is roughly 4,000 funds from 40 LP contributors, updated infrequently,
+  academic access only. Same schema. More funds. Better sourcing. Fully automated.</p>
+
+  <h3 style="margin-top:22px">Then we benchmarked it against what people pay for</h3>
+  <p class="muted">The interesting half of the project wasn't the pipeline — it was the
+  head-to-head against PitchBook and Preqin on coverage density, sparsity, accounting
+  consistency and reporting fidelity.</p>
+
+  <figure class="chart"><p class="ct">Primary disclosures are 3–4× denser than what vendors sell</p><p class="cs">Share of fund records missing a usable value, pooled across IRR, TVPI, DPI and RVPI.</p><svg viewBox="0 0 640 110" role="img" aria-label="Bar chart: Primary pension disclosures 15%, Commercial aggregators 60%"><line class="grid" x1="215.0" y1="6" x2="215.0" y2="82"/><text class="lbl" x="215.0" y="98" text-anchor="middle">0%</text><line class="grid" x1="318.8" y1="6" x2="318.8" y2="82"/><text class="lbl" x="318.8" y="98" text-anchor="middle">19%</text><line class="grid" x1="422.5" y1="6" x2="422.5" y2="82"/><text class="lbl" x="422.5" y="98" text-anchor="middle">38%</text><line class="grid" x1="526.2" y1="6" x2="526.2" y2="82"/><text class="lbl" x="526.2" y="98" text-anchor="middle">56%</text><line class="grid" x1="630.0" y1="6" x2="630.0" y2="82"/><text class="lbl" x="630.0" y="98" text-anchor="middle">75%</text><g class="mark" tabindex="0" role="listitem" aria-label="Primary pension disclosures: 15%"><rect class="hit" x="0" y="6" width="640" height="38"/><text class="lbl" x="203" y="29" text-anchor="end">Primary pension disclosures</text><rect class="bar" x="215" y="12" width="83.0" height="20" fill="#3987e5"/><text class="val" x="307.0" y="29">15%</text><g class="tip"><rect x="125" y="-40" width="263" height="43"/><text x="135" y="-21">Primary pension disclosures: 15%</text><text x="135" y="-6">Parsed directly from LP board packets.</text></g></g><g class="mark" tabindex="0" role="listitem" aria-label="Commercial aggregators: 60%"><rect class="hit" x="0" y="44" width="640" height="38"/><text class="lbl" x="203" y="67" text-anchor="end">Commercial aggregators</text><rect class="bar" x="215" y="50" width="332.0" height="20" fill="#d95926"/><text class="val" x="556.0" y="67">60%</text><g class="tip"><rect x="195" y="-2" width="372" height="43"/><text x="205" y="17">Commercial aggregators: 60%</text><text x="205" y="32">Missingness exceeds 50% on granular accounting metrics.</text></g></g><line class="axis" x1="215" y1="6" x2="215" y2="82"/></svg><div class="legend"><span><i class="s1"></i>Our pipeline</span><span><i class="s2"></i>Vendors</span></div><figcaption>Commercial databases are routinely treated as comprehensive. Empirically they are sparse snapshots with selective completeness — and the funds they omit are the smaller, fragmented, less marketable ones, which puts structural selection bias into every downstream study built on them.</figcaption><details class="tableview"><summary>View as table</summary><div class="scroll-x"><table class="tbl"><caption class="note" style="text-align:left;padding:6px 0">Rounded headline figures from the head-to-head comparison; per-metric rates vary.</caption><thead><tr><th>Source</th><th>Approx. missingness</th></tr></thead><tbody><tr><td>Primary pension disclosures</td><td class="num">~15%</td></tr><tr><td>PitchBook / Preqin</td><td class="num">~50–60%</td></tr></tbody></table></div></details></figure>
+
+  <div class="callout warn">
+    <h4>Vendor records fail arithmetic that cannot fail</h4>
+    <p>TVPI = DPI + RVPI. That's an accounting identity, not an empirical claim. Vendor records
+    violate it — stale fields, asynchronous updates and reconciliation errors produce fund rows
+    that look coherent and are not. We also found "Frankenstein" records: semantically identical
+    funds that the vendor failed to reconcile, so a single row is stitched together from
+    reporting cycles months apart. Aggregate correlation with primary data stays high, which
+    is exactly what makes this dangerous — the distortion is concentrated at the fund level,
+    in unrealised valuations, which is where capital allocation decisions actually happen.</p>
+  </div>
+
+  <h3 style="margin-top:22px">Making the two sources comparable at all</h3>
+  <p class="muted">Before you can compare, you have to fix the clock. PE funds report at
+  different frequencies (quarterly, semiannual, effectively annual) with different lags, so two
+  values observed on different dates may describe completely different points in a fund's life.
+  A 1.2x TVPI at age 2 is not a 1.2x TVPI at age 6. Comparing unmatched timing mistakes a
+  reporting artifact for performance. So every dated observation gets mapped onto a fund-age
+  axis (report year minus vintage year), medians are taken per age cell, and only cells with at
+  least five funds in <i>each</i> source enter the comparison — 651 buyout observations from 429
+  funds and 338 VC observations from 219 funds on our side, against 2,904 and 3,476 Preqin
+  observations respectively.</p>
+
+  <figure class="chart"><p class="ct">The benchmark is smooth in a way the underlying funds are not</p><p class="cs">Mean absolute gap between the Preqin median J-curve and the median built from primary disclosures, compared at common fund ages.</p><svg viewBox="0 0 640 110" role="img" aria-label="Bar chart: Buyout 0.142x, VC / growth 0.288x"><line class="grid" x1="130.0" y1="6" x2="130.0" y2="82"/><text class="lbl" x="130.0" y="98" text-anchor="middle">0.000x</text><line class="grid" x1="255.0" y1="6" x2="255.0" y2="82"/><text class="lbl" x="255.0" y="98" text-anchor="middle">0.100x</text><line class="grid" x1="380.0" y1="6" x2="380.0" y2="82"/><text class="lbl" x="380.0" y="98" text-anchor="middle">0.200x</text><line class="grid" x1="505.0" y1="6" x2="505.0" y2="82"/><text class="lbl" x="505.0" y="98" text-anchor="middle">0.300x</text><line class="grid" x1="630.0" y1="6" x2="630.0" y2="82"/><text class="lbl" x="630.0" y="98" text-anchor="middle">0.400x</text><g class="mark" tabindex="0" role="listitem" aria-label="Buyout: 0.142x"><rect class="hit" x="0" y="6" width="640" height="38"/><text class="lbl" x="118" y="29" text-anchor="end">Buyout</text><rect class="bar" x="130" y="12" width="177.5" height="20" fill="#3987e5"/><text class="val" x="316.5" y="29">0.142x</text><g class="tip"><rect x="-34" y="-40" width="506" height="43"/><text x="-24" y="-21">Buyout: 0.142x</text><text x="-24" y="-6">Shape correlation 0.81 across 28 common ages. Preqin median is 46% smoother.</text></g></g><g class="mark" tabindex="0" role="listitem" aria-label="VC / growth: 0.288x"><rect class="hit" x="0" y="44" width="640" height="38"/><text class="lbl" x="118" y="67" text-anchor="end">VC / growth</text><rect class="bar" x="130" y="50" width="360.0" height="20" fill="#199e70"/><text class="val" x="499.0" y="67">0.288x</text><g class="tip"><rect x="57" y="-2" width="506" height="43"/><text x="67" y="17">VC / growth: 0.288x</text><text x="67" y="32">Shape correlation 0.87 across 21 common ages. Preqin median is 72% smoother.</text></g></g><line class="axis" x1="130" y1="6" x2="130" y2="82"/></svg><div class="legend"><span><i class="s1"></i>Buyout</span><span><i class="s3"></i>VC / growth</span></div><figcaption>Both strategies show the same broad lifecycle, so Preqin is not wrong — it is filtered. The early J-curve dip is shallower in the benchmark for both (0.921x vs 1.049x for buyout; 0.880x vs 0.997x for VC), which is what survivorship looks like. VC is the sharper case: roughly twice the gap, and the benchmark damps mid-life volatility rather than merely lagging it.</figcaption><details class="tableview"><summary>View as table</summary><div class="scroll-x"><table class="tbl"><caption class="note" style="text-align:left;padding:6px 0">Age cells require at least five funds in each source to enter the comparison.</caption><thead><tr><th>Metric</th><th>Buyout</th><th>VC / growth</th></tr></thead><tbody><tr><td>Common age cells</td><td class="num">28</td><td class="num">21</td></tr><tr><td>Shape correlation</td><td class="num">0.81</td><td class="num">0.87</td></tr><tr><td>Mean absolute gap</td><td class="num">0.142x</td><td class="num">0.288x</td></tr><tr><td>Median absolute gap</td><td class="num">0.078x</td><td class="num">0.246x</td></tr><tr><td>Largest gap</td><td class="num">0.692x (age 27)</td><td class="num">0.937x (age 12)</td></tr><tr><td>Preqin roughness vs ours</td><td class="num">46% lower</td><td class="num">72% lower</td></tr></tbody></table></div></details></figure>
+
+  <p class="muted"><b>Fund paths versus snapshots.</b> The second test was fund-level rather
+  than aggregate. Our data often carries repeated dated marks for the same fund; Preqin
+  typically contributes one. So the fair comparison isn't curve-versus-curve, it's
+  path-versus-point: fit a cubic spline to our observations only, evaluate it at Preqin's single
+  snapshot date, and compare. Of 53 modelled fund paths (31 buyout, 22 VC with at least four
+  marks), 16 cases had the Preqin date falling strictly <i>inside</i> our observation window —
+  true interpolation, the cleanest possible evidence. Those residuals were small: mean absolute
+  0.040x, median 0.020x, interquartile range −0.023x to +0.002x. Extrapolation cases (37 of
+  them) were reported separately, at 0.093x.</p>
+
+  <div class="callout find">
+    <h4>The limitation became the finding</h4>
+    <p>Preqin's fund-level snapshots are not systematically wrong — on clean same-date
+    comparisons they're close. What they are is <b>sparse as a time series</b>. One dated point
+    per fund means you cannot build a Preqin fund-level trajectory at all. So the honest
+    conclusion isn't "our data is more accurate"; it's that the two sources support different
+    questions. Ours supports trajectories; Preqin supports checkpoints. Downstream analytics
+    that need movement over time — spline interpolation, J-curve modelling — structurally
+    require primary data to function.</p>
+  </div>
+
+  <div class="stats" style="margin-top:16px">
+    <div class="stat"><div class="n">90+</div><div class="l">Pension fund sites in scope</div></div>
+    <div class="stat"><div class="n">7</div><div class="l">Consultant-specific parsers</div></div>
+    <div class="stat"><div class="n">62%</div><div class="l">Universe coverage achieved</div></div>
+    <div class="stat"><div class="n">30–60d</div><div class="l">Freshness post quarter-end,
+      vs a 2–3 quarter vendor lag</div></div>
+  </div>
+
+  <p class="note" style="margin-top:16px">Built in the first semester of the MFE programme,
+  with free tools, alongside a full course load.</p>
+
+  <div class="tags">
+    <span class="tag on">Postgres</span><span class="tag on">FastAPI</span>
+    <span class="tag">pdfplumber</span><span class="tag">PyMuPDF</span>
+    <span class="tag">pytesseract OCR</span><span class="tag">Retool</span>
+    <span class="tag">Cubic splines</span><span class="tag">Benchmark validation</span>
+  </div>
+</article>
+
+<!-- ============ REGIMES ============ -->
+<article class="card proj" id="regimes" data-cat="privatemkts">
+  <div class="proj-head">
+    <div>
+      <p class="eyebrow">Corsair Capital · UC Berkeley MFE industry project · with Aaryen Mehta</p>
+      <h2 style="margin-bottom:4px">Software-cycle regimes and private-equity returns —
+        anatomy of a result that wasn't there</h2>
+    </div>
+    <span class="proj-when">Mar – Sep 2026</span>
+  </div>
+  <p class="muted"><b>The question.</b> Do software-market conditions at the time a PE fund
+  invests predict the fund's eventual TVPI? It's a natural question with an obvious research
+  design, and the obvious research design gives you a significant answer. It took most of the
+  project to work out that the answer was an artifact.</p>
+
+  <p class="muted"><b>Construction.</b> A 1,493-fund panel built from 462 pension filings. Ten
+  correlated software-market indicators reduced by PCA to five components explaining 92.1% of
+  variance. A three-state Gaussian hidden Markov model selected by BIC, classifying each quarter
+  from 2011 Q1 to 2026 Q2 as contraction, neutral or expansion. Then: regress winsorised TVPI on
+  fund age, age², and regime dummies, and test whether the regime dummies add explanatory power.</p>
+
+  <figure class="chart"><p class="ct">Five episodes, not sixty-two quarters</p><p class="cs">Three-state Gaussian HMM fitted on five principal components of ten software-market indicators, 2011 Q1 – 2026 Q2.</p><svg viewBox="0 0 640 128" role="img" aria-label="Timeline: the hidden Markov model splits 62 quarters into just five contiguous regime episodes, mean length 12.4 quarters"><g class="mark" tabindex="0" role="listitem" aria-label="Neutral, 2011 Q1–Q2, 2 quarters"><rect class="cell" x="8.0" y="30" width="20.1" height="44" fill="#6b7280" rx="4"/><g class="tip"><rect x="-56" y="-22" width="148" height="43"/><text x="-46" y="-3">Neutral · 2 quarters</text><text x="-46" y="12">2011 Q1–Q2</text></g></g><g class="mark" tabindex="0" role="listitem" aria-label="Contraction, 2011 Q3 – 2013 Q3, 9 quarters"><rect class="cell" x="28.1" y="30" width="90.6" height="44" fill="#d95926" rx="4"/><text class="val" x="73.4" y="57" text-anchor="middle" style="font-size:11px">9q</text><g class="tip"><rect x="-13" y="-22" width="174" height="43"/><text x="-3" y="-3">Contraction · 9 quarters</text><text x="-3" y="12">2011 Q3 – 2013 Q3</text></g></g><g class="mark" tabindex="0" role="listitem" aria-label="Neutral, 2013 Q4 – 2019 Q4, 25 quarters"><rect class="cell" x="118.7" y="30" width="251.6" height="44" fill="#6b7280" rx="4"/><text class="val" x="244.5" y="57" text-anchor="middle" style="font-size:11px">25q</text><g class="tip"><rect x="167" y="-22" width="154" height="43"/><text x="177" y="-3">Neutral · 25 quarters</text><text x="177" y="12">2013 Q4 – 2019 Q4</text></g></g><g class="mark" tabindex="0" role="listitem" aria-label="Contraction, 2020 Q1 – 2023 Q1, 13 quarters"><rect class="cell" x="370.3" y="30" width="130.8" height="44" fill="#d95926" rx="4"/><text class="val" x="435.7" y="57" text-anchor="middle" style="font-size:11px">13q</text><g class="tip"><rect x="346" y="-22" width="180" height="43"/><text x="356" y="-3">Contraction · 13 quarters</text><text x="356" y="12">2020 Q1 – 2023 Q1</text></g></g><g class="mark" tabindex="0" role="listitem" aria-label="Expansion, 2023 Q2 – 2026 Q2, 13 quarters"><rect class="cell" x="501.2" y="30" width="130.8" height="44" fill="#3987e5" rx="4"/><text class="val" x="566.6" y="57" text-anchor="middle" style="font-size:11px">13q</text><g class="tip"><rect x="483" y="-22" width="167" height="43"/><text x="493" y="-3">Expansion · 13 quarters</text><text x="493" y="12">2023 Q2 – 2026 Q2</text></g></g><line class="grid" x1="8.0" y1="78" x2="8.0" y2="84"/><text class="lbl" x="8.0" y="98" text-anchor="middle">2011</text><line class="grid" x1="128.8" y1="78" x2="128.8" y2="84"/><text class="lbl" x="128.8" y="98" text-anchor="middle">2014</text><line class="grid" x1="249.5" y1="78" x2="249.5" y2="84"/><text class="lbl" x="249.5" y="98" text-anchor="middle">2017</text><line class="grid" x1="370.3" y1="78" x2="370.3" y2="84"/><text class="lbl" x="370.3" y="98" text-anchor="middle">2020</text><line class="grid" x1="491.1" y1="78" x2="491.1" y2="84"/><text class="lbl" x="491.1" y="98" text-anchor="middle">2023</text><line class="grid" x1="611.9" y1="78" x2="611.9" y2="84"/><text class="lbl" x="611.9" y="98" text-anchor="middle">2026</text><text class="lbl" x="8" y="18">62 quarters · 5 episodes · mean 12.4q</text><text class="lbl" x="632" y="118" text-anchor="end" fill="#3987e5">the only expansion is also the most recent period</text></svg><div class="legend"><span><i class="s2"></i>Contraction</span><span><i class="nt"></i>Neutral</span><span><i class="s1"></i>Expansion</span></div><figcaption>Each fund's regime label is almost perfectly determined by the year it was raised — the mean dominant-regime share inside a deal entry year is 98%. Worse, the single expansion episode is also the most recent, so "expansion" and "young fund" are the same column with two names.</figcaption><details class="tableview"><summary>View as table</summary><div class="scroll-x"><table class="tbl"><caption class="note" style="text-align:left;padding:6px 0">Mean episode length 12.4 quarters. Effective sample size ≈ 5.</caption><thead><tr><th>Episode</th><th>Regime</th><th>Quarters</th></tr></thead><tbody><tr><td>2011 Q1 – Q2</td><td class="num">Neutral</td><td class="num">2</td></tr><tr><td>2011 Q3 – 2013 Q3</td><td class="num">Contraction</td><td class="num">9</td></tr><tr><td>2013 Q4 – 2019 Q4</td><td class="num">Neutral</td><td class="num">25</td></tr><tr><td>2020 Q1 – 2023 Q1</td><td class="num">Contraction</td><td class="num">13</td></tr><tr><td>2023 Q2 – 2026 Q2</td><td class="num">Expansion</td><td class="num">13</td></tr></tbody></table></div></details></figure>
+
+  <div class="callout warn">
+    <h4>Sixty-two quarters is not sixty-two observations</h4>
+    <p>The HMM produces five contiguous episodes with a mean length of 12.4 quarters. Regime is
+    therefore almost a relabelling of calendar time — the mean dominant-regime share inside a
+    deal entry year is 98%. And because the single expansion episode is also the most recent
+    one, "invested during an expansion" and "is a young fund" are structurally confounded.</p>
+    <p style="margin-top:8px">You can see the confound directly in the exit rates. Deal exit
+    rate falls monotonically from 33.0% for 2014 entries to 0.2% for 2024 entries — that's pure
+    exposure time. Sliced by regime it reads 20.6% neutral, 4.2% contraction, 0.4% expansion.
+    Same column, relabelled.</p>
+  </div>
+
+  <h3 style="margin-top:20px">The contradiction that forced the issue</h3>
+  <p class="muted">Two inference procedures on the same 15 vintage clusters disagreed. Vintage-
+  <i>clustered</i> standard errors said significant (p = 0.011 / 0.023) and described themselves
+  as the honest inference. Vintage-<i>permutation</i> on the identical grouping said null
+  (p = 0.141). Both can't be right.</p>
+  <p class="muted">Clustered sandwich standard errors are asymptotic in the <i>number of
+  clusters</i>, not the number of observations. With G = 15 they over-reject — this is the
+  Bertrand–Duflo–Mullainathan result, and the Cameron–Gelbach–Miller rule of thumb wants G in
+  the 30–50 range before you trust them. The permutation test makes no such asymptotic
+  assumption. The permutation test wins.</p>
+
+  <h3 style="margin-top:20px">So I built a ladder of nulls</h3>
+  <p class="muted">The cleanest way to show what's happening is to hold the estimand fixed —
+  ΔR² of the regime dummies over <code>tvpi_w ~ age + age²</code>, observed value 0.00351
+  against a baseline R² of 0.1253 — and vary only what the null hypothesis is permitted to
+  permute.</p>
+
+  <figure class="chart"><p class="ct">What you permute decides what you find</p><p class="cs">ΔR² of regime dummies over tvpi_w ~ age + age², n = 1,493 funds. Same estimand, four null hypotheses.</p><svg viewBox="0 0 640 164" role="img" aria-label="Bar chart: Across funds (1,493 units) 0.045, Across vintages (15 units) 0.155, Circular shift, episodes kept (5 units) 0.197"><line class="grid" x1="238.0" y1="22" x2="238.0" y2="136"/><text class="lbl" x="238.0" y="152" text-anchor="middle">0.000</text><line class="grid" x1="336.0" y1="22" x2="336.0" y2="136"/><text class="lbl" x="336.0" y="152" text-anchor="middle">0.065</text><line class="grid" x1="434.0" y1="22" x2="434.0" y2="136"/><text class="lbl" x="434.0" y="152" text-anchor="middle">0.130</text><line class="grid" x1="532.0" y1="22" x2="532.0" y2="136"/><text class="lbl" x="532.0" y="152" text-anchor="middle">0.195</text><line class="grid" x1="630.0" y1="22" x2="630.0" y2="136"/><text class="lbl" x="630.0" y="152" text-anchor="middle">0.260</text><g class="mark" tabindex="0" role="listitem" aria-label="Across funds (1,493 units): 0.045"><rect class="hit" x="0" y="22" width="640" height="38"/><text class="lbl" x="226" y="45" text-anchor="end">Across funds (1,493 units)</text><rect class="bar" x="238" y="28" width="67.8" height="20" fill="#3987e5"/><text class="val" x="323.4" y="45">0.045</text><g class="tip"><rect x="105" y="-24" width="334" height="43"/><text x="115" y="-5">Across funds (1,493 units): 0.045</text><text x="115" y="10">The naive null. Treats every fund as independent.</text></g></g><g class="mark" tabindex="0" role="listitem" aria-label="Across vintages (15 units): 0.155"><rect class="hit" x="0" y="60" width="640" height="38"/><text class="lbl" x="226" y="83" text-anchor="end">Across vintages (15 units)</text><rect class="bar" x="238" y="66" width="233.7" height="20" fill="#3987e5"/><text class="val" x="480.7" y="83">0.155</text><g class="tip"><rect x="239" y="14" width="231" height="43"/><text x="249" y="33">Across vintages (15 units): 0.155</text><text x="249" y="48">Respects vintage clustering.</text></g></g><g class="mark" tabindex="0" role="listitem" aria-label="Circular shift, episodes kept (5 units): 0.197"><rect class="hit" x="0" y="98" width="640" height="38"/><text class="lbl" x="226" y="121" text-anchor="end">Circular shift, episodes kept (5 units)</text><rect class="bar" x="238" y="104" width="297.0" height="20" fill="#3987e5"/><text class="val" x="544.0" y="121">0.197</text><g class="tip"><rect x="159" y="52" width="455" height="43"/><text x="169" y="71">Circular shift, episodes kept (5 units): 0.197</text><text x="169" y="86">Respects the actual 5 regime episodes. Only 61 distinct draws exist.</text></g></g><line class="thresh" x1="313.4" y1="18" x2="313.4" y2="136"/><text class="lbl" x="313.4" y="12" text-anchor="middle" fill="#d95926" style="font-weight:600">α = 0.05</text><line class="axis" x1="238" y1="22" x2="238" y2="136"/></svg><figcaption>p rises monotonically as the null respects more of the data's structure. That ordering is the signature of an inference-level error, not of a weak effect. The regime variable has roughly five independent realisations — not 1,493.</figcaption><details class="tableview"><summary>View as table</summary><div class="scroll-x"><table class="tbl"><caption class="note" style="text-align:left;padding:6px 0">Observed ΔR² = 0.00351 against a baseline R² of 0.1253. Only 50 distinct randomisations exist at the episode level, so the floor p is 0.020.</caption><thead><tr><th>Null hypothesis</th><th>Units</th><th>Draws</th><th>Mean ΔR²</th><th>p</th></tr></thead><tbody><tr><td>Across funds (naive)</td><td class="num">1,493</td><td class="num">1,000</td><td class="num">0.00114</td><td class="num"><b>0.045</b></td></tr><tr><td>Across vintages</td><td class="num">15</td><td class="num">1,000</td><td class="num">0.00194</td><td class="num">0.155</td></tr><tr><td>Circular shift, episodes kept</td><td class="num">5</td><td class="num">61</td><td class="num">0.00220</td><td class="num">0.197</td></tr></tbody></table></div></details></figure>
+
+  <div class="callout find">
+    <h4>Monotone p is a diagnostic</h4>
+    <p>When p climbs steadily as the null respects more of the data's real dependence structure,
+    you are not looking at a weak effect. You are looking at an inference-level error: the
+    earlier, lower p-values were borrowing significance from units that were never independent.
+    The episode-level null is 1.7× wider than the naive one. And there are only 50 distinct
+    randomisations available at that level, which puts a hard floor of p = 0.020 on anything
+    this design can ever detect.</p>
+  </div>
+
+  <p class="muted"><b>What the deal-level analysis added.</b> A parallel 73,806-company Preqin
+  deal panel gave p &lt; 0.0001, which looks decisive and isn't: it's a Moulton problem stacked
+  on the exposure-time artifact above. I'd also flag that the fund-level universe (LP
+  disclosures) and the deal-level universe (the full Preqin tech universe) were never matched to
+  each other — they answer different questions about different populations, and the write-up
+  needs to say so rather than let the reader assume continuity.</p>
+
+  <div class="callout">
+    <h4>What would actually fix the design</h4>
+    <p>Lengthen the estimation window back to 1995, which takes the episode count from ~5 to
+    ~15 and the floor p from 0.020 to roughly 0.007. Break the age–regime confound by
+    restricting to funds aged 8+ or switching the outcome to DPI on realised capital. Match the
+    Preqin deals to the LP fund universe so the two analyses describe one population. And refit
+    the HMM on expanding windows with filtered rather than smoothed posteriors — the current fit
+    uses the full window, which is an in-sample association and biases <i>towards</i> finding
+    an effect, making the null result stronger rather than weaker.</p>
+  </div>
+
+  <p class="muted"><b>The contribution, stated honestly.</b> The deliverable is the negative
+  result plus its anatomy: a regime variable estimated on a sixteen-year window has roughly five
+  independent realisations, and conducting inference at the fund, vintage or deal level
+  manufactures significance that the data does not contain. That is a reusable warning about an
+  entire class of regime-conditioning studies, which I'd argue is worth more than a p-value
+  of 0.045 would have been.</p>
+
+  <div class="row">
+    <a class="btn sm" href="https://claude.ai/artifact/TczaJEM5rhagbnLZYqvDf6"
+       target="_blank" rel="noopener">Interactive walkthrough</a>
+  </div>
+  <div class="tags">
+    <span class="tag on">Hidden Markov models</span><span class="tag on">Permutation inference</span>
+    <span class="tag">PCA</span><span class="tag">Clustered standard errors</span>
+    <span class="tag">Circular-shift tests</span><span class="tag">Survival analysis</span>
+    <span class="tag">PostgreSQL</span>
+  </div>
+</article>
+
+<!-- ============ ALLSHIFTS ============ -->
+<article class="card proj" id="allshifts" data-cat="systems">
+  <div class="proj-head">
+    <div>
+      <p class="eyebrow">AllShifts · Data Engineering &amp; Revenue Analyst</p>
+      <h2 style="margin-bottom:4px">Forecasting and credit systems at a healthcare staffing
+        marketplace</h2>
+    </div>
+    <span class="proj-when">Oct 2023 – Feb 2026</span>
+  </div>
+  <p class="muted">Two and a half years of turning messy operational data into things the
+  business actually ran on. Less glamorous than research, and the single best training I've had
+  in the gap between a model that validates and a model that survives contact with users.</p>
+  <ul class="list">
+    <li><b>Stochastic pricing optimiser.</b> Facility-by-nurse-type ARIMA demand scenarios
+      combined with seasonal rate fill curves, maximising expected fills subject to contract and
+      margin constraints. Forecasts validated against 2024–2025 actuals.</li>
+    <li><b>Credit risk model.</b> Logistic regression on 6- and 12-month delinquency and
+      billing-to-payment histories. Validated on 400 clients, deployed to 1,700+. Post-rollout,
+      defaults fell 17% and payments arrived two weeks sooner.</li>
+    <li><b>Cash collection forecasting.</b> LightGBM on billing lags, accounts-receivable aging
+      cohorts and calendar effects, predicting daily collections one to three weeks out at
+      4.8% out-of-sample MAPE.</li>
+    <li><b>Revenue-risk monitor.</b> A four-week rolling view using STL to strip seasonality
+      and LightGBM to flag client-level declines in orders, billings and payments before they
+      showed up in the headline number.</li>
+  </ul>
+  <div class="stats" style="margin-top:14px">
+    <div class="stat"><div class="n">−17%</div><div class="l">Client defaults after
+      credit-model rollout</div></div>
+    <div class="stat"><div class="n">2 wks</div><div class="l">Faster payment arrival</div></div>
+    <div class="stat"><div class="n">4.8%</div><div class="l">Out-of-sample MAPE on daily
+      cash collections</div></div>
+    <div class="stat"><div class="n">1,700+</div><div class="l">Clients scored in
+      production</div></div>
+  </div>
+  <div class="tags">
+    <span class="tag on">LightGBM</span><span class="tag on">ARIMA</span><span class="tag">STL</span>
+    <span class="tag">Logistic regression</span><span class="tag">Stochastic optimisation</span>
+    <span class="tag">SQL</span>
+  </div>
+</article>
+
+<!-- ============ POKER ============ -->
+<article class="card proj" id="poker" data-cat="systems">
+  <div class="proj-head">
+    <div><p class="eyebrow">Side project</p>
+      <h2 style="margin-bottom:4px">Poker equity calculator</h2></div>
+    <span class="proj-when">Ongoing</span>
+  </div>
+  <p class="muted">A Streamlit Texas Hold'em equity calculator built on Monte Carlo simulation
+  via <code>treys</code>. It models opponents as random hands, returns equity against that
+  range, and converts it into a pot-odds / expected-value call-or-fold recommendation. Modelling
+  opponents as uniformly random is the obvious limitation and the obvious next thing to fix —
+  range construction is where the real work is.</p>
+  <div class="row">
+    <a class="btn sm" href="https://github.com/lvsreenivaas/Poker-Equity-Calculator"
+       target="_blank" rel="noopener">Repository</a>
+  </div>
+  <div class="tags"><span class="tag on">Monte Carlo</span><span class="tag">Streamlit</span>
+    <span class="tag">Pot odds / EV</span><span class="tag">treys</span></div>
+</article>
+
+<section class="section">
+  <div class="card">
+    <h2>Related</h2>
+    <p class="muted">The graph neural network project is now a working paper —
+      <a class="link" href="research.html">read the abstract and download the PDF</a>. For the
+      full employment history and coursework, see the
+      <a class="link" href="assets/RESUME_VENKATA_SREE_LINGAM.pdf" target="_blank" rel="noopener">résumé</a>. If any of this
+      is relevant to a role you're hiring for,
+      <a class="link" href="contact.html">get in touch</a>.</p>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var tabs = Array.prototype.slice.call(document.querySelectorAll(".tab"));
+    var cards = Array.prototype.slice.call(document.querySelectorAll("article.proj"));
+    tabs.forEach(function (t) {
+      t.addEventListener("click", function () {
+        var f = t.dataset.filter;
+        tabs.forEach(function (x) {
+          var on = x === t;
+          x.classList.toggle("active", on);
+          x.setAttribute("aria-selected", on ? "true" : "false");
+        });
+        cards.forEach(function (c) {
+          c.hidden = !(f === "all" || c.dataset.cat === f);
+        });
+      });
+    });
+  })();
+</script>
+</main><footer class="wrap">
+  <div class="foot">
+    <div>
+      <h4>Venkata Sreenivaas Lingam</h4>
+      <p class="note">Quantitative research &amp; trading. UC Berkeley MFE, Class of 2027.
+      Currently seeking full-time trading and research roles starting 2027.</p>
+      <div class="cta-row">
+        <a class="btn sm" href="https://github.com/lvsreenivaas" rel="me noopener" target="_blank">GitHub</a>
+        <a class="btn sm" href="https://linkedin.com/in/sreenivaaslv" rel="me noopener" target="_blank">LinkedIn</a>
+        <a class="btn sm" href="mailto:venkata_sl@berkeley.edu">Email</a>
+      </div>
+    </div>
+    <div>
+      <h4>Pages</h4>
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="research.html">Research</a>
+      <a href="reading.html">Reading</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div>
+      <h4>Work</h4>
+      <a href="projects.html#prisma">Private-markets data pipeline</a>
+      <a href="projects.html#regimes">Software-cycle regimes</a>
+      <a href="projects.html#gnn">Graph neural networks</a>
+      <a href="projects.html#citi">BTP–Bund hedging</a>
+      <a href="research.html#firms-that-look-alike">SSRN paper</a>
+      <a href="assets/RESUME_VENKATA_SREE_LINGAM.pdf" target="_blank" rel="noopener">Résumé (PDF)</a>
+    </div>
+  </div>
+  <div class="foot-end">
+    <span>© <span id="year">2026</span> Venkata Sreenivaas Lingam</span>
+    <span><a href="privacy.html" style="display:inline">Privacy</a> ·
+      Static HTML on GitHub Pages · no trackers beyond the analytics noted in the policy</span>
+  </div>
+</footer>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

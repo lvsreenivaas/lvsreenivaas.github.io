@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting to index.html#main | Venkata Sreenivaas Lingam</title>
+  <!-- GitHub Pages serves static files only and cannot send a real HTTP 301.
+       rel=canonical + meta refresh is the supported equivalent: search engines
+       consolidate ranking signals onto the canonical target, and visitors are
+       forwarded immediately. -->
+  <link rel="canonical" href="https://lvsreenivaas.github.io/index.html">
+  <meta name="robots" content="noindex, follow">
+  <meta http-equiv="refresh" content="0; url=index.html#main">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <main class="wrap center-page">
+    <div>
+      <h1 style="font-size:24px">This page has moved</h1>
+      <p class="lead">Taking you to <a class="link" href="index.html#main">index.html#main</a>&hellip;</p>
+      <p class="note">Not redirected? <a class="link" href="index.html#main">Follow this link.</a></p>
+    </div>
+  </main>
+  <script>location.replace("index.html#main");</script>
+</body>
+</html>

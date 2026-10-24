@@ -1,0 +1,9 @@
+# robots.txt — https://lvsreenivaas.github.io
+User-agent: *
+Allow: /
+Disallow: /404.html
+
+# Crawl the PDFs too — the paper and resume should be findable.
+Allow: /assets/
+
+Sitemap: https://lvsreenivaas.github.io/sitemap.xml
